@@ -4,7 +4,33 @@
 
     <groupId>com.github.eakonovalov</groupId>
     <artifactId>jgroups-spring-boot-starter</artifactId>
-    <version>0.0.2-SNAPSHOT</version>
+    <version>0.0.1-SNAPSHOT</version>
+
+    <name>JGroups Spring Boot Starter</name>
+    <description>Simplified start of JGroups cluster</description>
+    <url>https://github.com/eakonovalov/jgroups-spring-boot-starter</url>
+
+    <organization>
+        <url>https://github.com/eakonovalov</url>
+        <name>Waine</name>
+    </organization>
+
+    <licenses>
+        <license>
+            <name>The Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Evgeny Konovalov</name>
+            <email>eakonovalov@gmail.com</email>
+            <organization>Waine</organization>
+            <organizationUrl>https://github.com/eakonovalov</organizationUrl>
+            <timezone>UTC+07:00</timezone>
+        </developer>
+    </developers>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
