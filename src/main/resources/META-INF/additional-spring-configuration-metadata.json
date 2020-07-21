@@ -1,0 +1,14 @@
+{
+  "properties": [
+    {
+      "name": "jgroups.cluster.enabled",
+      "type": "java.lang.Boolean",
+      "description": ""
+    },
+    {
+      "name": "jgroups.cluster.name",
+      "type": "java.lang.String",
+      "description": ""
+    }
+  ]
+}
