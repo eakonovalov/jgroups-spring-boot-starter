@@ -4,7 +4,7 @@
 
     <groupId>com.github.eakonovalov</groupId>
     <artifactId>jgroups-spring-boot-starter</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2-SNAPSHOT</version>
 
     <name>JGroups Spring Boot Starter</name>
     <description>Simplified start of JGroups cluster</description>
