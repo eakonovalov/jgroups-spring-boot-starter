@@ -16,6 +16,8 @@
 package com.github.eakonovalov;
 
 import org.jgroups.JChannel;
+import org.jgroups.Receiver;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -32,14 +34,19 @@ import org.springframework.context.annotation.Configuration;
 public class JGroupsClusterAutoConfiguration {
 
     private final JGroupsClusterProperties cluster;
+    private final Receiver receiver;
 
-    public JGroupsClusterAutoConfiguration(JGroupsClusterProperties cluster) {
+    public JGroupsClusterAutoConfiguration(JGroupsClusterProperties cluster, ObjectProvider<Receiver> receiverProvider) {
         this.cluster = cluster;
+        this.receiver = receiverProvider.getIfAvailable();
     }
 
     @Bean(destroyMethod = "close")
     public JChannel channel() throws Exception {
         final JChannel channel = new JChannel();
+        if (receiver != null) {
+            channel.setReceiver(receiver);
+        }
         channel.connect(cluster.getName() != null ? cluster.getName() : "default");
 
         return channel;
