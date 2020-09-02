@@ -24,6 +24,9 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
 /**
  * @author Evgeny Konovalov
  */
@@ -42,12 +45,31 @@ public class JGroupsClusterAutoConfiguration {
     }
 
     @Bean(destroyMethod = "close")
-    public JChannel channel() throws Exception {
-        final JChannel channel = new JChannel();
+    public JChannel channel() {
+        final JChannel channel;
+        try {
+            channel = new JChannel();
+        } catch (Exception e) {
+            throw new ClusterCreationException("Cannot create channel", e);
+        }
         if (receiver != null) {
             channel.setReceiver(receiver);
         }
-        channel.connect(cluster.getName() != null ? cluster.getName() : "default");
+        String clusterName = cluster.getName();
+        if (clusterName == null || clusterName.isEmpty()) {
+            InetAddress address;
+            try {
+                address = InetAddress.getLocalHost();
+            } catch (UnknownHostException e) {
+                throw new ClusterCreationException("Cannot local host name", e);
+            }
+            cluster.setName("default-" + address.getHostName());
+        }
+        try {
+            channel.connect(cluster.getName());
+        } catch (Exception e) {
+            throw new ClusterCreationException("Cannot connect to the cluster", e);
+        }
 
         return channel;
     }
